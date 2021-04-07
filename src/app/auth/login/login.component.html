@@ -1,0 +1,32 @@
+<!-- Reactive Form Approach -->
+<section class="login-form">
+    <form 
+        fxLayout="column" 
+        fxLayoutAlign="center center" 
+        fxLayoutGap="8px" 
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()">
+        <h3>Returning users login here:</h3>
+        <mat-form-field>
+            <input
+                type="email"
+                matInput
+                placeholder="Your email"
+                formControlName="email">
+            <mat-error>Invalid or missing email.</mat-error>
+    <!-- TODO: check if email is valid  -->
+                <!-- <mat-error *ngIf="this.loginForm.email.hasError('required')" >Please enter the email associated with your account!</mat-error> -->
+            <!-- <mat-error *ngIf="email.hasError('required')">Please enter the email address you used to sign up!</mat-error>
+            <mat-error *ngIf="!email.hasError('required')">The email address is invalid!</mat-error> -->
+        </mat-form-field>
+        <mat-form-field>
+            <input
+                type="password"
+                matInput
+                placeholder="Your password"
+                formControlName="password">
+            <mat-error>Please verify your password is correct.</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
+    </form>
+</section>

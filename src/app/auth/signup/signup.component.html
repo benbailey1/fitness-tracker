@@ -1,1 +1,55 @@
-<p>signup works!</p>
+<!-- Template driven form -->
+<section class="signup-form">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" #f="ngForm" (ngSubmit)="onSubmit(f)" > <!-- "center center" centers this on the vertical axis and then the horizontal axis-->
+        <mat-form-field>
+            <input 
+                type="email" 
+                matInput  
+                placeholder="Your email address" 
+                ngModel name="email"
+                email
+                required
+                #emailInput="ngModel">
+                <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
+                <mat-error *ngIf="!emailInput.hasError('required')">E-Mail address is invalid.</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Password must be at least 6 characters long">
+            <input 
+                type="password" 
+                matInput  
+                placeholder="Your password" 
+                ngModel name="password"
+                required
+                minlength="6"
+                #pwInput="ngModel">
+            <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> <!-- ? avoids errors if value is null -->
+            <mat-error>Password must be a minimum of 6 characters in length.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input 
+                matInput 
+                placeholder="Your birthdate" 
+                [matDatepicker]="picker"
+                [max]="maxDate"
+                ngModel name="birthdate"
+                required
+                #bDayInput="ngModel">
+            <mat-error *ngIf="bDayInput.hasError('required')">Birthdate is required.</mat-error>
+            <mat-error *ngIf="!bDayInput.hasError('required')">You must be at least 18 years old to register.</mat-error>
+            <mat-datepicker-toggle 
+                matSuffix 
+                [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+            <mat-checkbox
+                ngModel 
+                name="agree"
+                required
+                color="primary">
+                    <p>I have read and agree to the Terms of Use.</p>
+            </mat-checkbox><button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+        
+    </form>
+</section>
+
